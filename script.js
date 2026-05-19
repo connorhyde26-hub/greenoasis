@@ -103,13 +103,13 @@ counterObserver.observe(heroSection);
 
 /* ── GALLERY LIGHTBOX ── */
 const galleryImages = [
-  { src: 'assets/fence2.webp', alt: 'Fence project — landscape and fence work by Blue Collar' },
-  { src: 'assets/fence3.webp', alt: 'Completed fence installation' },
-  { src: 'assets/fence4.webp', alt: 'Residential fence project' },
-  { src: 'assets/fence5.webp', alt: 'Fence and yard project' },
-  { src: 'assets/fence8.jpg', alt: 'Modern metal panel fence installation' },
-  { src: 'assets/fence6.webp', alt: 'Privacy fence installation' },
-  { src: 'assets/unnamed.jpg.webp', alt: 'Completed fence and landscape project' },
+  { src: 'assets/gallery-suburban-lawn-mountains.png', alt: 'Professionally mowed suburban lawn' },
+  { src: 'assets/gallery-street-lawn-mowing-stripes.png', alt: 'Lawn with professional mowing stripes' },
+  { src: 'assets/gallery-side-yard-mowed-lawn.png', alt: 'Mowed side yard lawn' },
+  { src: 'assets/gallery-backyard-mowing-stripes.png', alt: 'Backyard lawn with mowing stripes' },
+  { src: 'assets/gallery-tudor-home-lawn.png', alt: 'Residential lawn in front of Tudor-style home' },
+  { src: 'assets/gallery-modern-homes-lawn-stripes.png', alt: 'Manicured lawn between modern homes' },
+  { src: 'assets/gallery-brick-home-front-lawn.png', alt: 'Front lawn with mowing stripes at brick home' },
 ];
 
 const lightbox = document.getElementById('lightbox');
