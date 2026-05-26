@@ -164,21 +164,35 @@ document.addEventListener('keydown', e => {
 const contactForm = document.getElementById('contactForm');
 const formSuccess = document.getElementById('formSuccess');
 
-contactForm.addEventListener('submit', e => {
+contactForm.addEventListener('submit', async e => {
   e.preventDefault();
 
   const btn = contactForm.querySelector('button[type="submit"]');
+  const defaultLabel = btn.textContent;
   btn.textContent = 'Sending…';
   btn.disabled = true;
 
-  // Simulate async send (wire up to Formspree / EmailJS / backend as needed)
-  setTimeout(() => {
-    btn.textContent = 'Send Message';
+  try {
+    const response = await fetch(contactForm.action, {
+      method: 'POST',
+      body: new FormData(contactForm),
+      headers: { Accept: 'application/json' },
+    });
+
+    if (response.ok) {
+      contactForm.reset();
+      formSuccess.classList.add('show');
+      setTimeout(() => formSuccess.classList.remove('show'), 6000);
+    } else {
+      const data = await response.json().catch(() => ({}));
+      alert(data.error || 'Something went wrong. Please try again or call (801) 200-0184.');
+    }
+  } catch {
+    alert('Could not send your message. Please try again or call (801) 200-0184.');
+  } finally {
+    btn.textContent = defaultLabel;
     btn.disabled = false;
-    contactForm.reset();
-    formSuccess.classList.add('show');
-    setTimeout(() => formSuccess.classList.remove('show'), 6000);
-  }, 1200);
+  }
 });
 
 /* ── REVIEW SEE MORE ── */
