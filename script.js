@@ -103,13 +103,35 @@ counterObserver.observe(heroSection);
 
 /* ── GALLERY LIGHTBOX ── */
 const galleryImages = [
-  { src: 'assets/gallery-suburban-lawn-mountains.png', alt: 'Professionally mowed suburban lawn' },
-  { src: 'assets/gallery-street-lawn-mowing-stripes.png', alt: 'Lawn with professional mowing stripes' },
-  { src: 'assets/gallery-side-yard-mowed-lawn.png', alt: 'Mowed side yard lawn' },
-  { src: 'assets/gallery-backyard-mowing-stripes.png', alt: 'Backyard lawn with mowing stripes' },
-  { src: 'assets/gallery-tudor-home-lawn.png', alt: 'Residential lawn in front of Tudor-style home' },
-  { src: 'assets/gallery-modern-homes-lawn-stripes.png', alt: 'Manicured lawn between modern homes' },
-  { src: 'assets/gallery-brick-home-front-lawn.png', alt: 'Front lawn with mowing stripes at brick home' },
+  { src: 'assets/gallery-photos/gallery-00.jpg', alt: 'Green Oasis lawn care project' },
+  { src: 'assets/gallery-photos/gallery-01.jpg', alt: 'Green Oasis lawn care project' },
+  { src: 'assets/gallery-photos/gallery-02.jpg', alt: 'Green Oasis lawn care project' },
+  { src: 'assets/gallery-photos/gallery-03.jpg', alt: 'Green Oasis lawn care project' },
+  { src: 'assets/gallery-photos/gallery-04.jpg', alt: 'Green Oasis lawn care project' },
+  { src: 'assets/gallery-photos/gallery-05.jpg', alt: 'Green Oasis lawn care project' },
+  { src: 'assets/gallery-photos/gallery-06.jpg', alt: 'Green Oasis lawn care project' },
+  { src: 'assets/gallery-photos/gallery-07.jpg', alt: 'Green Oasis lawn care project' },
+  { src: 'assets/gallery-photos/gallery-08.jpg', alt: 'Green Oasis lawn care project' },
+  { src: 'assets/gallery-photos/gallery-09.jpg', alt: 'Green Oasis lawn care project' },
+  { src: 'assets/gallery-photos/gallery-10.jpg', alt: 'Green Oasis lawn care project' },
+  { src: 'assets/gallery-photos/gallery-11.jpg', alt: 'Green Oasis lawn care project' },
+  { src: 'assets/gallery-photos/gallery-12.jpg', alt: 'Green Oasis lawn care project' },
+  { src: 'assets/gallery-photos/gallery-13.jpg', alt: 'Green Oasis lawn care project' },
+  { src: 'assets/gallery-photos/gallery-14.jpg', alt: 'Green Oasis lawn care project' },
+  { src: 'assets/gallery-photos/gallery-15.jpg', alt: 'Green Oasis lawn care project' },
+  { src: 'assets/gallery-photos/gallery-16.jpg', alt: 'Green Oasis lawn care project' },
+  { src: 'assets/gallery-photos/gallery-17.jpg', alt: 'Green Oasis lawn care project' },
+  { src: 'assets/gallery-photos/gallery-18.jpg', alt: 'Green Oasis lawn care project' },
+  { src: 'assets/gallery-photos/gallery-19.jpg', alt: 'Green Oasis lawn care project' },
+  { src: 'assets/gallery-photos/gallery-20.jpg', alt: 'Green Oasis lawn care project' },
+  { src: 'assets/gallery-photos/gallery-21.jpg', alt: 'Green Oasis lawn care project' },
+  { src: 'assets/gallery-photos/gallery-22.jpg', alt: 'Green Oasis lawn care project' },
+  { src: 'assets/gallery-photos/gallery-23.jpg', alt: 'Green Oasis lawn care project' },
+  { src: 'assets/gallery-photos/gallery-24.jpg', alt: 'Green Oasis lawn care project' },
+  { src: 'assets/gallery-photos/gallery-25.jpg', alt: 'Green Oasis lawn care project' },
+  { src: 'assets/gallery-photos/gallery-26.jpg', alt: 'Green Oasis lawn care project' },
+  { src: 'assets/gallery-photos/gallery-27.jpg', alt: 'Green Oasis lawn care project' },
+  { src: 'assets/gallery-photos/gallery-28.jpg', alt: 'Green Oasis lawn care project' },
 ];
 
 const lightbox = document.getElementById('lightbox');
@@ -142,8 +164,8 @@ function changeLightbox(dir) {
   showLightboxImage();
 }
 
-document.querySelectorAll('.gallery-item').forEach((item, idx) => {
-  item.addEventListener('click', () => openLightbox(idx));
+document.querySelectorAll('.gallery-item').forEach((item) => {
+  item.addEventListener('click', () => openLightbox(Number(item.dataset.idx)));
 });
 lbClose.addEventListener('click', closeLightbox);
 lbPrev.addEventListener('click', e => { e.stopPropagation(); changeLightbox(-1); });
