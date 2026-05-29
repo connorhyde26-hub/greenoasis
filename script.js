@@ -167,6 +167,16 @@ function changeLightbox(dir) {
 document.querySelectorAll('.gallery-item').forEach((item) => {
   item.addEventListener('click', () => openLightbox(Number(item.dataset.idx)));
 });
+
+const galleryViewMore = document.getElementById('galleryViewMore');
+if (galleryViewMore) {
+  galleryViewMore.addEventListener('click', e => {
+    e.preventDefault();
+    e.stopPropagation();
+    const startIdx = galleryImages.findIndex(img => img.src.endsWith('gallery-10.jpg'));
+    requestAnimationFrame(() => openLightbox(startIdx >= 0 ? startIdx : 10));
+  });
+}
 lbClose.addEventListener('click', closeLightbox);
 lbPrev.addEventListener('click', e => { e.stopPropagation(); changeLightbox(-1); });
 lbNext.addEventListener('click', e => { e.stopPropagation(); changeLightbox(1); });

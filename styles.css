@@ -722,6 +722,13 @@ input, textarea, select {
   height: 100%;
   object-fit: cover;
 }
+.gallery-footer {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  margin-top: 48px;
+}
 
 /* Lightbox */
 .lightbox {
