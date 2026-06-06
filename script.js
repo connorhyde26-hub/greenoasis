@@ -56,6 +56,10 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 /* ── SCROLL REVEAL via IntersectionObserver ── */
 const revealEls = document.querySelectorAll('.reveal');
+const isEmbedded =
+  window.self !== window.top ||
+  new URLSearchParams(window.location.search).has('embed');
+
 const revealObserver = new IntersectionObserver(
   entries => {
     entries.forEach(entry => {
@@ -65,12 +69,45 @@ const revealObserver = new IntersectionObserver(
       }
     });
   },
-  { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+  {
+    threshold: isEmbedded ? 0.01 : 0.12,
+    rootMargin: isEmbedded ? '0px' : '0px 0px -40px 0px',
+  }
 );
-revealEls.forEach(el => revealObserver.observe(el));
+
+function revealIfInView(el) {
+  const rect = el.getBoundingClientRect();
+  const inView = rect.top < window.innerHeight && rect.bottom > 0;
+  if (inView) {
+    el.classList.add('visible');
+    revealObserver.unobserve(el);
+    return true;
+  }
+  return false;
+}
+
+revealEls.forEach(el => {
+  revealIfInView(el);
+  revealObserver.observe(el);
+});
+
+function refreshReveals() {
+  revealEls.forEach(el => revealIfInView(el));
+}
+
+window.addEventListener('load', refreshReveals);
+requestAnimationFrame(() => requestAnimationFrame(refreshReveals));
+
+if (isEmbedded) {
+  document.querySelectorAll('#hero .reveal').forEach(el => {
+    el.classList.add('visible');
+    revealObserver.unobserve(el);
+  });
+}
 
 /* ── ANIMATED COUNTERS ── */
 const counters = document.querySelectorAll('.count');
+let countersStarted = false;
 
 function animateCounter(el) {
   const target = parseInt(el.dataset.target, 10);
@@ -87,19 +124,35 @@ function animateCounter(el) {
   requestAnimationFrame(tick);
 }
 
+function startCounters() {
+  if (countersStarted) return;
+  countersStarted = true;
+  counters.forEach(animateCounter);
+}
+
 const heroSection = document.getElementById('hero');
 const counterObserver = new IntersectionObserver(
   entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        counters.forEach(animateCounter);
+        startCounters();
         counterObserver.disconnect();
       }
     });
   },
-  { threshold: 0.5 }
+  { threshold: isEmbedded ? 0.1 : 0.5 }
 );
-counterObserver.observe(heroSection);
+
+if (heroSection) {
+  counterObserver.observe(heroSection);
+  if (isEmbedded) {
+    const heroRect = heroSection.getBoundingClientRect();
+    if (heroRect.top < window.innerHeight && heroRect.bottom > 0) {
+      startCounters();
+      counterObserver.disconnect();
+    }
+  }
+}
 
 /* ── GALLERY LIGHTBOX ── */
 const galleryImages = [
